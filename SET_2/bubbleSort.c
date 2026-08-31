@@ -17,20 +17,25 @@ void bubbleSort(int arr[], int n){
     }
 }
 
+void printarr(int arr[] , int SIZE){
+    for(int i=0;i<SIZE;i++){
+        printf("%d \t",arr[i]);
+    }
+    printf("\n");
+}
+
 int main(){
     int arr[]={4,5,73,2,1,8};
     int n = sizeof(arr)/sizeof(arr[0]);
-    for (int i = 0; i < n; i++){
-      printf("%d ", arr[i]);  
-    }
-    printf("\n");
+
+    printf("original array : \n");
+    printarr(arr,n);
 
     bubbleSort(arr, n);
 
-    for (int i = 0; i < n; i++)
-    {
-        printf("%d ", arr[i]);
-    }
+    printf("Sorted array : \n");
+    printarr(arr,n);
+
     return 0;
 
 
