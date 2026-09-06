@@ -8,37 +8,61 @@ void printarr(int arr[] , int SIZE){
 }
 
 
-void merge(int arr[],int temp[],int mid,int left,int right){
+void merge(int arr[],int left,int mid,int right){
 
+    int i=left,j=mid+1,k =left,temp[100];
+    //int j=mid+1;
+    //int k =left;
+    //int temp[100];
+
+    while (i<=mid && j<=right)
+    {
+        if(arr[i]<arr[j]){
+            temp[k]=arr[i];
+            i++;
+        }
+        else
+        {
+            temp[k]=arr[j];
+            j++;
+        }
+        k++;
+    }
+
+    while (i<=mid)
+    {
+        temp[k]=arr[i];
+        i++;
+        k++;
+    }
+    
+    while (j<=right)
+    {
+        temp[k]=arr[j];
+        j++;
+        k++;
+    }
+    
+    for(i=left;i<=right;i++)
+    {
+        arr[i]=temp[i];
+    }
      
+}
 
-    // Copy the merged, sorted elements back into the original array
-    for ( int i = left; i <= right; i++) {
-        arr[i] = temp[i];
+
+
+void mergeSortRecursive(int arr[],int left,int right){
+    if(left<right)
+    {
+    int mid = (left + right)/2;
+    //printf("%d",mid);
+    mergeSortRecursive(arr,left,mid);
+    mergeSortRecursive(arr,mid+1,right);
+    merge(arr,left,mid,right);
     }
+
 }
-
-
-
-mergeSortRecursive(int arr[],int temp[], int left , int right){
-    int mid = left + (right-left)/2;
-    mergeSortRecursive(arr,temp,left,mid);
-    mergeSortRecursive(arr,temp,mid+1,right);
-
-    merge(arr,temp,mid,left,right);
-}
-
-
-void mergeSort(int arr[], int n) {
-
-    int *temp = (int *)malloc(n * sizeof(int));
-    if (temp != NULL) {
-        mergeSortRecursive(arr, temp, 0, n - 1);
-        free(temp); // Clean up the memory when the whole sort is done
-    }
-}
-
-
 
 int main(){
     int arr[]={5,7,2,9,4,6};
@@ -46,12 +70,10 @@ int main(){
     printf("original array : \n");
     printarr(arr,n);
 
-    mergeSort(arr,n);
+    mergeSortRecursive(arr,0,n-1);
 
     printf("Sorted array : \n");
     printarr(arr,n);
 
     return 0;
-
-
 }

@@ -7,8 +7,24 @@ void printarr(int arr[] , int SIZE){
     printf("\n");
 }
 
-void shell_sort(){
+void shellSort(int arr[], int n)
+{
+    for (int gap = n / 2; gap > 0; gap = gap / 2)
+    {
+        for (int i = gap; i < n; i++)
+        {
+            int temp = arr[i];
+            int j = i;
 
+            while (j >= gap && arr[j - gap] > temp)
+            {
+                arr[j] = arr[j - gap];
+                j = j - gap;
+            }
+
+            arr[j] = temp;
+        }
+    }
 }
 
 int main(){
@@ -17,7 +33,7 @@ int main(){
     printf("original array : \n");
     printarr(arr,n);
 
-    insertion_sort(arr,n);
+    shellSort(arr,n);
     
     printf("Sorted array : \n");
     printarr(arr,n);
